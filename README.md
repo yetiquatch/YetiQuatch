@@ -1,4 +1,4 @@
-# Tales of the Siyayitch
+# YetiQuatch
 ## Table of Contents
 ### insert link to story
 I'm creating an [anchor link to Story 1](#story-1) below.
