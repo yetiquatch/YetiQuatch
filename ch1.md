@@ -1,3 +1,6 @@
 # Chapter 1
-This is a story
+[Back to Home](/ ) 
 
+//insert story here
+
+[Back to Home](/ ) 
