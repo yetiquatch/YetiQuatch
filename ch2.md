@@ -1,5 +1,6 @@
-[Back to Table of Contents](#table-of-contents)
+[Table of Contents](https://www.yetiquatch.com)
 # Chapter 2
 
 
-[Back to Table of Contents](#table-of-contents)
+[Table of Contents](https://www.yetiquatch.com)
+
