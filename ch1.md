@@ -1,5 +1,5 @@
-[Back to Table of Contents](#table-of-contents)
+[Table of Contents](https://www.yetiquatch.com)
 # Chapter 1
 This is a story
 
-[Back to Table of Contents](#table-of-contents)
+[Table of Contents](https://www.yetiquatch.com)
