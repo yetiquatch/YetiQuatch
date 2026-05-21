@@ -23,8 +23,8 @@ Diversion, as the playing out<br>
 Of scales,<br>
 Of varied human melody.<br>
 
-We sit,
-Held by being,
-Carried along by this fragile vessel,
+We sit,<br>
+Held by being,<br>
+Carried along by this fragile vessel,<br>
 Keeping company.
 
