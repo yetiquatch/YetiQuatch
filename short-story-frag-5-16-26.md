@@ -26,3 +26,8 @@ Time settles the dust. Things become clearer. I know you're laughing as you read
 Only now do I see that our love for time was flawed, fatally so. I didn't realize it until long after the accident. I didn't see that building a time machine was a way of fearing time as much as loving it. We would tell ourselves and each other that we loved it, that it was our life's work. We talked about it constantly, often into the early morning hours sipping black tea. We were fiends for it, truly. We were addicted. We spent hours, days, weeks, months, years calculating it. We planned and anticipated what it would mean to have that time, to control it. We rushed headlong into the question of time, and we macheted our way through the thicket of tangled paradoxes. We lost many friends along the way. Only when the machine was almost finished did time seem to slow down, the aperture of awareness opened. 
 
 Mike was still with us, but no one else. He was a devotee as well. Only the truly faithful could stand the gravitational pull of our orbit. When the machine was finished, it was like the Earth had paused its celestial spinning. We should have seen it then, the contradiction at the heart of us, the fear, for it is always fear that cracks open the human world and lays it before us to survey the wreckage. But we didn't see it, only the light that guided us, like some phantasmal north star that radiated a siren song that only we could hear.
+
+
+
+<script data-goatcounter="https://yetiquatch.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
