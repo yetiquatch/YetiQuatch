@@ -1,7 +1,7 @@
 # Untitled Poem 5-21-26
 
 Sometimes I wish things could just be,<br>
-like those quiet intimate moments between bee and flower,<br>
+like those quiet intimate moments between flower and bee,<br>
 like a sun-baked hound in the yard of its domicile.<br> 
 
 But the restless noise crescendoes,<br>
