@@ -35,8 +35,6 @@ have a strong hunch, a student will get a 0 and be asked to have a conversation 
 assignments, I'm not going to do that. I only do that for major drafts where I am spending time reading and
 commenting, because I'm not going to spend that time on a LLMs writing. I'm a teacher of students, not LLMs.
 
-1
-
 Here's some inside baseball about teaching: reading and responding to student work is SUPER time consuming.
 I could spend the amount of time I spend grading ALL student assignments on just one student's assignment.
 Seriously, I could comment on a student's paper; talk with the student for an hour (or 3 hours) to explore their
@@ -54,6 +52,7 @@ a piece of software that has AI write something and then has AI grade it, and th
 teacher) can go drink lemonade on a beach. Why would I waste my time with reading an LLMs output? I don't
 teach robots (at least not yet, and hopefully not ever, barring some AI robot dystopia becoming reality). I teach
 humans.
+
 I've only been teaching 11 years (starting in 2015) and it is still MONUMENTAL how much AI and social
 media has changed teaching in that time. I still want to teach, but I am spending way too much time figuring
 out how to teach in a way that allows me to continue to have authentic learning experiences in my classroom
@@ -74,9 +73,6 @@ that you are also smart. So, I can imagine working in a language that is not one
 But guess what? I grew up speaking English and I had the same experience in college. Sure, I knew some of the
 grammar of a native speaker, but that doesn't mean I could use English to communicate what I thought were my
 big, important ideas. I had to struggle with the language A LOT to say what I thought. I had a leg up over a
-
-2
-
 student who is also learning English as a non-native speaker as do many native speakers. But even native
 speakers are learning to write in English. We all are. I am right now.
 I've spent a good amount of time writing in this survey and thinking about my tone, style, approach. I tend to be
@@ -89,11 +85,8 @@ aren't afraid of me! When I wrote it the first time, I meant something more like
 I don't want my academic training to become a barrier to communication, so I try to write differently.
 All of that and more is captured in my small edit. And the more? The more is the deep psychology of the author
 and in this author's case, the author's anxieties! What do you think of me? Do I sound faux-"man of the people"
-
 or like the real McCoy, a genuine, mortal, flawed, but caring and thinking guy? Do you want to have a (non-
-alcoholic) beer with me, as political consultants often ask of people after they hear a politician speak? Do you
-
-think I'm a credible person, or is this meta-comment on my own writing and my own feelings and thoughts
+alcoholic) beer with me, as political consultants often ask of people after they hear a politician speak? Do you think I'm a credible person, or is this meta-comment on my own writing and my own feelings and thoughts
 coming across as strange and neurotic? They say a picture is worth a thousand words, but even words are a
 worth a thousand more words and they're worth a thousand inchoate thoughts and feelings, churning about in
 the subconscious and the barely conscious realms of the author's psyche!
