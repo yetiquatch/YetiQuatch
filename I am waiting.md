@@ -1,6 +1,7 @@
 # 7/25/26 Writing Group
 ## Prompt
 “I am waiting / for the meek to be blessed / and inherit the earth / without taxes / and I am waiting / for forests and animals / to reclaim the earth as theirs. am waiting / for a way to be devised / to destroy all nationalisms / without killing anybody” — Lawrence Ferlinghetti
+
 The speaker presents a long, meandering list of things they are waiting for to reveal a snapshot of the concerns of his time. Write a poem that lists what you are awaiting, perhaps reflecting on current issues, both national and international. Try referencing characters from your favorite works of literature, as Ferlinghetti does with Tom Sawyer, Aphrodite, and others.
 
 ## Response to Prompt
