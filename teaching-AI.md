@@ -3,6 +3,7 @@ A Response to a Community College English Composition Student Survey
 
 I responded to a survey by students in an English composition class at a community college. I responded to
 specific questions, which I will not reproduce. Here are my answers:
+
 I want to hear what students think and how students think through their writing. That is challenging for students
 who may not think in English. So I understand why students want to show their thinking using an English that
 better represents their thinking. They may feel their English language skills are not good enough to represent
@@ -19,9 +20,7 @@ is what we are doing in college and particularly in ENG 101 and 102, using AI is
 challenging but rewarding work of articulating ideas and then revising those articulations in a way that feels
 truer to what you think.
 
-The truth is: writing is hard, because thinking is hard.
-
-Communicating thought through the written word requires revision. You have to try words to represent thought,
+The truth is: writing is hard, because thinking is hard. Communicating thought through the written word requires revision. You have to try words to represent thought,
 and see how those words fail (they will always fail!). Then, use the words you've written on the page to rethink
 what you thought. You have to ask yourself: is this what I think? And then you revise the imperfect words into
 slightly less imperfect words (there are no perfect words, sentences, or arguments!). I'm no genius, but I do care
@@ -45,7 +44,6 @@ comment as best I can on what I think are the most important things to explore: 
 engagement with others' ideas, guiding the reader (always be thinking about the reader!), etc. And then I offer
 in person workshops and support to help them as much as I can.
 
-THE PURPOSE OF THE CLASSROOM
 Assuming we are talking about having AI respond (there may be ways that students just use AI to polish their
 writing, which I still think is bad) then obviously everything is lost. What is the point?! We might as well write
 a piece of software that has AI write something and then has AI grade it, and then you and I (student and
@@ -65,7 +63,6 @@ Note on Personal Practice: I use AI to draft worksheets and activities sometimes
 extensive revisions to whatever is produced. It allows me to do it a bit faster because it creates a template to
 work within; but it isn't a major change to my teaching.
 
-THE SHARED STRUGGLE OF LANGUAGE & META-REVISION
 When you're in college, it feels all encompassing. It feels like your grades matter SO MUCH! If you're like me,
 it feels like the ideas matter so much too! And, if you're like me, when you are working with a teacher who
 inspires you to think in new ways and who seems so smart, you want to be in community with them, show them
