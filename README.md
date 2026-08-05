@@ -1,9 +1,5 @@
 # Table of Contents
-
-## [Chapter 1](ch1.md)
-## [Chapter 2](ch2.md)
-
-//getting this page set up -- come back again soon! :)
+When I start writing the book, you'll see it here. :)
 
 # Other Writings
 ## [Writing Group 7/26/25](waiting.md)
