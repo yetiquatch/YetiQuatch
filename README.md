@@ -8,9 +8,9 @@ When I start writing the book, you'll see it here. :)
 ## [Short Story Fragment 5-16-26](short-story-frag-5-16-26.md)
 
 # Spanish Study Resources
-## [500 Common Verbs](500-Common-Verbs.md)
-## [College Courses and IT vocabulary](college-IT-Spanish.md)
-## [Advanced Spanish Verbs](advanced-spanish-verbs.md)
+## [Master Vocabulary Deck](master-vocab.md)
+## [College Courses and IT vocabulary Deck](college-IT-Spanish.md)
+## [Advanced Spanish Verbs Deck](advanced-spanish-verbs.md)
 
 
 <script data-goatcounter="https://yetiquatch.goatcounter.com/count"
