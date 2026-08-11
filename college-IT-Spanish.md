@@ -544,7 +544,7 @@
     { es: "la captura de pantalla", en: "screenshot", type: "noun" },
     { es: "el pantallazo", en: "screenshot (colloquial)", type: "noun" },
     { es: "el atajo de teclado", en: "keyboard shortcut", type: "noun" },
-    { es: "el metadato", en: "metadata", type: "noun" }
+    { es: "el metadato", en: "metadata", type: "noun" },
 
             // --- VERBS (Higher Ed & Library) ---
             { es: "enseñar", en: "to teach", type: "verb" },
@@ -593,7 +593,7 @@
             { es: "navegar", en: "to navigate / browse", type: "verb" },
             { es: "copiar", en: "to copy", type: "verb" },
             { es: "pegar", en: "to paste", type: "verb" },
-            { es: "reiniciar", en: "to restart", type: "verb" }
+            { es: "reiniciar", en: "to restart", type: "verb" },
 { es: "buscar", en: "to search", type: "verb" },
     { es: "recuperar", en: "to recover (data)", type: "verb" },
     { es: "renovar", en: "to renew", type: "verb" },
