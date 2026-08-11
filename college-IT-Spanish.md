@@ -3,310 +3,686 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT & College Spanish Vocabulary Flashcards</title>
+    <title>Academic & IT Spanish Vocabulary</title>
     <style>
         :root {
-            --primary: #0f172a;
-            --secondary: #2563eb;
-            --accent: #059669;
-            --background: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-light: #64748b;
-            --border-radius: 14px;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --white: #ffffff;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-        }
-
         body {
-            background-color: var(--background);
-            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--primary);
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            padding: 2rem 1rem;
+            padding: 2rem;
+            margin: 0;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            max-width: 720px;
-        }
-
         h1 {
+            text-align: center;
             color: var(--primary);
-            font-size: 2.1rem;
             margin-bottom: 0.5rem;
-            font-weight: 800;
         }
-
-        p.subtitle {
-            color: var(--text-light);
-            font-size: 1.05rem;
-            line-height: 1.5;
-        }
-
-        .controls-container {
+        .controls {
+            margin-bottom: 2rem;
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            width: 100%;
-            max-width: 720px;
+            gap: 1rem;
         }
-
-        select, button {
-            padding: 0.75rem 1.25rem;
-            font-size: 0.95rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            background-color: white;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        select {
-            flex: 1;
-            min-width: 200px;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        button {
-            background-color: var(--secondary);
-            color: white;
+        button, select {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
             border: none;
-            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: var(--accent);
+            color: var(--white);
+            transition: background-color 0.3s ease;
         }
-
-        button:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-1px);
+        button:hover, select:hover {
+            background-color: #2980b9;
         }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        .card-container {
-            perspective: 1000px;
+        .flashcard-container {
             width: 100%;
-            max-width: 580px;
-            height: 340px;
-            margin-bottom: 1.5rem;
+            max-width: 500px;
+            height: 300px;
+            perspective: 1000px;
+            margin-bottom: 2rem;
         }
-
-        .card {
+        .flashcard {
             width: 100%;
             height: 100%;
             position: relative;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform 0.6s;
             transform-style: preserve-3d;
             cursor: pointer;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
         }
-
-        .card.is-flipped {
+        .flashcard.is-flipped {
             transform: rotateY(180deg);
         }
-
-        .card-face {
+        .flashcard-face {
             position: absolute;
             width: 100%;
             height: 100%;
+            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2.5rem;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-sizing: border-box;
             text-align: center;
-            border-radius: var(--border-radius);
-            background-color: var(--card-bg);
-            border: 1px solid #e2e8f0;
         }
-
-        .card-back {
+        .flashcard-back {
             transform: rotateY(180deg);
-            background-color: var(--primary);
-            color: white;
-            border: none;
+            background-color: var(--secondary);
+            color: var(--white);
         }
-
-        .phrase {
-            font-size: 1.85rem;
-            font-weight: 700;
+        .word {
+            font-size: 2.5rem;
+            font-weight: bold;
             margin-bottom: 1rem;
-            line-height: 1.3;
         }
-
-        .category-tag {
-            font-size: 0.8rem;
+        .type-badge {
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            background-color: #e0f2fe;
-            color: #0369a1;
-            position: absolute;
-            top: 20px;
-            font-weight: 700;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
         }
-        
-        .type-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            background-color: #dcfce7;
-            color: #15803d;
-            position: absolute;
-            bottom: 20px;
-            font-weight: 700;
+        .flashcard-back .type-badge {
+            background: rgba(255,255,255,0.2);
         }
-
-        .card-back .category-tag {
-            background-color: rgba(255,255,255,0.18);
-            color: #f1f5f9;
+        .navigation {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
-
-        .card-back .type-tag {
-            background-color: rgba(255,255,255,0.18);
-            color: #f1f5f9;
-        }
-
-        .status {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .key-hint {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-light);
+        .counter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-width: 80px;
             text-align: center;
-        }
-        
-        @media (max-width: 600px) {
-            .phrase { font-size: 1.45rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>IT & College Spanish Lexicon</h1>
-        <p class="subtitle">500 targeted flashcards covering mobile & web technologies, database searching, college classrooms, and academic coursework.</p>
-    </header>
-
-    <div class="controls-container">
-        <select id="categoryFilter" onchange="filterCards()">
-            <option value="All">All Categories (5 Domains)</option>
-            <option value="IT: Hardware & Mobile Devices">IT: Hardware & Mobile Devices</option>
-            <option value="IT: Web & Database Search">IT: Web & Database Search</option>
-            <option value="IT: Software & Digital Workflows">IT: Software & Digital Workflows</option>
-            <option value="College: Classroom & Pedagogy">College: Classroom & Pedagogy</option>
-            <option value="College: Coursework & Academic Tasks">College: Coursework & Academic Tasks</option>
-        </select>
+    <h1>Spanish for Educators & Librarians</h1>
+    
+    <div class="controls">
         <select id="typeFilter" onchange="filterCards()">
-            <option value="All">All Types (Nouns, Verbs, Phrases)</option>
-            <option value="Noun">Nouns Only</option>
-            <option value="Verb">Verbs Only</option>
-            <option value="Phrase">Phrases Only</option>
+            <option value="all">All Words</option>
+            <option value="noun">Nouns Only</option>
+            <option value="verb">Verbs Only</option>
         </select>
         <button onclick="shuffleCards()">Shuffle Deck</button>
     </div>
 
-    <div class="status" id="counter">Card 1 of 500</div>
-
-    <div class="card-container" onclick="flipCard()">
-        <div class="card" id="flashcard">
-            <div class="card-face card-front">
-                <span class="category-tag" id="front-category">Category</span>
-                <div class="phrase" id="front-phrase">Loading...</div>
-                <span class="type-tag" id="front-type">Type</span>
+    <div class="flashcard-container" onclick="flipCard()">
+        <div class="flashcard" id="flashcard">
+            <div class="flashcard-face flashcard-front">
+                <div class="word" id="es-word">Cargando...</div>
+                <div class="type-badge" id="es-type">...</div>
             </div>
-            <div class="card-face card-back">
-                <span class="category-tag" id="back-category">Categoría</span>
-                <div class="phrase" id="back-phrase">Cargando...</div>
-                <span class="type-tag" id="back-type">Tipo</span>
+            <div class="flashcard-face flashcard-back">
+                <div class="word" id="en-word">Loading...</div>
+                <div class="type-badge" id="en-type">...</div>
             </div>
         </div>
     </div>
 
-    <div class="controls-container" style="margin-top: 0;">
-        <button onclick="prevCard()">&larr; Previous</button>
-        <button onclick="nextCard()">Next &rarr;</button>
-    </div>
-
-    <div class="key-hint">
-        Tip: Use <strong>Spacebar</strong> or <strong>Up/Down Arrows</strong> to flip, and <strong>Left/Right Arrows</strong> to navigate.
+    <div class="navigation">
+        <button onclick="prevCard()">&#8592; Previous</button>
+        <div class="counter" id="counter">0 / 0</div>
+        <button onclick="nextCard()">Next &#8594;</button>
     </div>
 
     <script>
-        const allCards = [{"sp": "desbloquear", "en": "to unlock", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "cargar", "en": "to charge", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "conectar", "en": "to connect", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "desconectar", "en": "to disconnect", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "encender", "en": "to turn on", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "apagar", "en": "to turn off", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "deslizar", "en": "to swipe / slide", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "tocar", "en": "to tap / touch", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "reiniciar", "en": "to restart", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "ajustar", "en": "to adjust", "cat": "IT: Hardware & Mobile Devices", "type": "Verb"}, {"sp": "el dispositivo m\u00f3vil", "en": "the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "la pantalla t\u00e1ctil", "en": "the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "la computadora port\u00e1til", "en": "the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "el teclado inal\u00e1mbrico", "en": "the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "el rat\u00f3n \u00f3ptico", "en": "the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "la bater\u00eda recargable", "en": "the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "el cargador r\u00e1pido", "en": "the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "los auriculares con micr\u00f3fono", "en": "the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "la memoria USB", "en": "the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "el disco duro externo", "en": "the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Noun"}, {"sp": "desbloquear el dispositivo m\u00f3vil", "en": "to unlock the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear la pantalla t\u00e1ctil", "en": "to unlock the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear la computadora port\u00e1til", "en": "to unlock the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear el teclado inal\u00e1mbrico", "en": "to unlock the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear el rat\u00f3n \u00f3ptico", "en": "to unlock the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear la bater\u00eda recargable", "en": "to unlock the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear el cargador r\u00e1pido", "en": "to unlock the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear los auriculares con micr\u00f3fono", "en": "to unlock the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear la memoria USB", "en": "to unlock the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desbloquear el disco duro externo", "en": "to unlock the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar el dispositivo m\u00f3vil", "en": "to charge the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar la pantalla t\u00e1ctil", "en": "to charge the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar la computadora port\u00e1til", "en": "to charge the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar el teclado inal\u00e1mbrico", "en": "to charge the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar el rat\u00f3n \u00f3ptico", "en": "to charge the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar la bater\u00eda recargable", "en": "to charge the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar el cargador r\u00e1pido", "en": "to charge the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar los auriculares con micr\u00f3fono", "en": "to charge the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar la memoria USB", "en": "to charge the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "cargar el disco duro externo", "en": "to charge the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar el dispositivo m\u00f3vil", "en": "to connect the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar la pantalla t\u00e1ctil", "en": "to connect the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar la computadora port\u00e1til", "en": "to connect the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar el teclado inal\u00e1mbrico", "en": "to connect the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar el rat\u00f3n \u00f3ptico", "en": "to connect the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar la bater\u00eda recargable", "en": "to connect the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar el cargador r\u00e1pido", "en": "to connect the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar los auriculares con micr\u00f3fono", "en": "to connect the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar la memoria USB", "en": "to connect the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "conectar el disco duro externo", "en": "to connect the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar el dispositivo m\u00f3vil", "en": "to disconnect the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar la pantalla t\u00e1ctil", "en": "to disconnect the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar la computadora port\u00e1til", "en": "to disconnect the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar el teclado inal\u00e1mbrico", "en": "to disconnect the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar el rat\u00f3n \u00f3ptico", "en": "to disconnect the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar la bater\u00eda recargable", "en": "to disconnect the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar el cargador r\u00e1pido", "en": "to disconnect the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar los auriculares con micr\u00f3fono", "en": "to disconnect the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar la memoria USB", "en": "to disconnect the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "desconectar el disco duro externo", "en": "to disconnect the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender el dispositivo m\u00f3vil", "en": "to turn on the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender la pantalla t\u00e1ctil", "en": "to turn on the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender la computadora port\u00e1til", "en": "to turn on the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender el teclado inal\u00e1mbrico", "en": "to turn on the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender el rat\u00f3n \u00f3ptico", "en": "to turn on the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender la bater\u00eda recargable", "en": "to turn on the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender el cargador r\u00e1pido", "en": "to turn on the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender los auriculares con micr\u00f3fono", "en": "to turn on the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender la memoria USB", "en": "to turn on the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "encender el disco duro externo", "en": "to turn on the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar el dispositivo m\u00f3vil", "en": "to turn off the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar la pantalla t\u00e1ctil", "en": "to turn off the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar la computadora port\u00e1til", "en": "to turn off the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar el teclado inal\u00e1mbrico", "en": "to turn off the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar el rat\u00f3n \u00f3ptico", "en": "to turn off the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar la bater\u00eda recargable", "en": "to turn off the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar el cargador r\u00e1pido", "en": "to turn off the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar los auriculares con micr\u00f3fono", "en": "to turn off the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar la memoria USB", "en": "to turn off the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "apagar el disco duro externo", "en": "to turn off the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar el dispositivo m\u00f3vil", "en": "to swipe / slide the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar la pantalla t\u00e1ctil", "en": "to swipe / slide the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar la computadora port\u00e1til", "en": "to swipe / slide the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar el teclado inal\u00e1mbrico", "en": "to swipe / slide the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar el rat\u00f3n \u00f3ptico", "en": "to swipe / slide the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar la bater\u00eda recargable", "en": "to swipe / slide the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar el cargador r\u00e1pido", "en": "to swipe / slide the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar los auriculares con micr\u00f3fono", "en": "to swipe / slide the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar la memoria USB", "en": "to swipe / slide the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "deslizar el disco duro externo", "en": "to swipe / slide the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar el dispositivo m\u00f3vil", "en": "to tap / touch the mobile device", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar la pantalla t\u00e1ctil", "en": "to tap / touch the touchscreen", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar la computadora port\u00e1til", "en": "to tap / touch the laptop computer", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar el teclado inal\u00e1mbrico", "en": "to tap / touch the wireless keyboard", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar el rat\u00f3n \u00f3ptico", "en": "to tap / touch the optical mouse", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar la bater\u00eda recargable", "en": "to tap / touch the rechargeable battery", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar el cargador r\u00e1pido", "en": "to tap / touch the fast charger", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar los auriculares con micr\u00f3fono", "en": "to tap / touch the headset with microphone", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar la memoria USB", "en": "to tap / touch the USB flash drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "tocar el disco duro externo", "en": "to tap / touch the external hard drive", "cat": "IT: Hardware & Mobile Devices", "type": "Phrase"}, {"sp": "buscar en", "en": "to search in", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "filtrar", "en": "to filter", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "consultar", "en": "to query / consult", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "navegar por", "en": "to browse through", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "indexar", "en": "to index", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "refinar", "en": "to refine", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "recuperar", "en": "to retrieve", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "guardar en marcadores", "en": "to bookmark", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "seleccionar", "en": "to select", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "examinar", "en": "to examine / inspect", "cat": "IT: Web & Database Search", "type": "Verb"}, {"sp": "el motor de b\u00fasqueda", "en": "the search engine", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "la base de datos relacional", "en": "the relational database", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "la consulta de b\u00fasqueda", "en": "the search query", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "el filtro de b\u00fasqueda", "en": "the search filter", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "la palabra clave", "en": "the keyword", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "la barra de direcciones", "en": "the address bar", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "el operador booleano", "en": "the Boolean operator", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "el enlace / hiperv\u00ednculo", "en": "the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "los resultados de b\u00fasqueda", "en": "the search results", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "el registro de datos", "en": "the data record", "cat": "IT: Web & Database Search", "type": "Noun"}, {"sp": "buscar en el motor de b\u00fasqueda", "en": "to search in the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en la base de datos relacional", "en": "to search in the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en la consulta de b\u00fasqueda", "en": "to search in the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en el filtro de b\u00fasqueda", "en": "to search in the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en la palabra clave", "en": "to search in the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en la barra de direcciones", "en": "to search in the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en el operador booleano", "en": "to search in the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en el enlace / hiperv\u00ednculo", "en": "to search in the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en los resultados de b\u00fasqueda", "en": "to search in the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "buscar en el registro de datos", "en": "to search in the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar el motor de b\u00fasqueda", "en": "to filter the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar la base de datos relacional", "en": "to filter the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar la consulta de b\u00fasqueda", "en": "to filter the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar el filtro de b\u00fasqueda", "en": "to filter the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar la palabra clave", "en": "to filter the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar la barra de direcciones", "en": "to filter the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar el operador booleano", "en": "to filter the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar el enlace / hiperv\u00ednculo", "en": "to filter the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar los resultados de b\u00fasqueda", "en": "to filter the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "filtrar el registro de datos", "en": "to filter the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar el motor de b\u00fasqueda", "en": "to query / consult the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar la base de datos relacional", "en": "to query / consult the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar la consulta de b\u00fasqueda", "en": "to query / consult the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar el filtro de b\u00fasqueda", "en": "to query / consult the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar la palabra clave", "en": "to query / consult the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar la barra de direcciones", "en": "to query / consult the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar el operador booleano", "en": "to query / consult the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar el enlace / hiperv\u00ednculo", "en": "to query / consult the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar los resultados de b\u00fasqueda", "en": "to query / consult the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "consultar el registro de datos", "en": "to query / consult the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por el motor de b\u00fasqueda", "en": "to browse through the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por la base de datos relacional", "en": "to browse through the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por la consulta de b\u00fasqueda", "en": "to browse through the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por el filtro de b\u00fasqueda", "en": "to browse through the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por la palabra clave", "en": "to browse through the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por la barra de direcciones", "en": "to browse through the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por el operador booleano", "en": "to browse through the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por el enlace / hiperv\u00ednculo", "en": "to browse through the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por los resultados de b\u00fasqueda", "en": "to browse through the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "navegar por el registro de datos", "en": "to browse through the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar el motor de b\u00fasqueda", "en": "to index the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar la base de datos relacional", "en": "to index the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar la consulta de b\u00fasqueda", "en": "to index the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar el filtro de b\u00fasqueda", "en": "to index the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar la palabra clave", "en": "to index the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar la barra de direcciones", "en": "to index the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar el operador booleano", "en": "to index the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar el enlace / hiperv\u00ednculo", "en": "to index the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar los resultados de b\u00fasqueda", "en": "to index the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "indexar el registro de datos", "en": "to index the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar el motor de b\u00fasqueda", "en": "to refine the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar la base de datos relacional", "en": "to refine the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar la consulta de b\u00fasqueda", "en": "to refine the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar el filtro de b\u00fasqueda", "en": "to refine the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar la palabra clave", "en": "to refine the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar la barra de direcciones", "en": "to refine the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar el operador booleano", "en": "to refine the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar el enlace / hiperv\u00ednculo", "en": "to refine the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar los resultados de b\u00fasqueda", "en": "to refine the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "refinar el registro de datos", "en": "to refine the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar el motor de b\u00fasqueda", "en": "to retrieve the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar la base de datos relacional", "en": "to retrieve the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar la consulta de b\u00fasqueda", "en": "to retrieve the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar el filtro de b\u00fasqueda", "en": "to retrieve the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar la palabra clave", "en": "to retrieve the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar la barra de direcciones", "en": "to retrieve the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar el operador booleano", "en": "to retrieve the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar el enlace / hiperv\u00ednculo", "en": "to retrieve the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar los resultados de b\u00fasqueda", "en": "to retrieve the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "recuperar el registro de datos", "en": "to retrieve the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores el motor de b\u00fasqueda", "en": "to bookmark the search engine", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores la base de datos relacional", "en": "to bookmark the relational database", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores la consulta de b\u00fasqueda", "en": "to bookmark the search query", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores el filtro de b\u00fasqueda", "en": "to bookmark the search filter", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores la palabra clave", "en": "to bookmark the keyword", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores la barra de direcciones", "en": "to bookmark the address bar", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores el operador booleano", "en": "to bookmark the Boolean operator", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores el enlace / hiperv\u00ednculo", "en": "to bookmark the link / hyperlink", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores los resultados de b\u00fasqueda", "en": "to bookmark the search results", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "guardar en marcadores el registro de datos", "en": "to bookmark the data record", "cat": "IT: Web & Database Search", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en", "en": "to log in to", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "cerrar sesi\u00f3n en", "en": "to log out of", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "descargar", "en": "to download", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "subir a la nube", "en": "to upload to the cloud", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "instalar", "en": "to install", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "actualizar", "en": "to update", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "sincronizar", "en": "to synchronize", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "adjuntar", "en": "to attach", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "configurar", "en": "to configure", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "proteger con contrase\u00f1a", "en": "to password-protect", "cat": "IT: Software & Digital Workflows", "type": "Verb"}, {"sp": "la aplicaci\u00f3n m\u00f3vil", "en": "the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "la cuenta de usuario", "en": "the user account", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "la contrase\u00f1a segura", "en": "the secure password", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "el almacenamiento en la nube", "en": "the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "el correo electr\u00f3nico", "en": "the email", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "el archivo PDF", "en": "the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "la conexi\u00f3n wifi", "en": "the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "el sistema operativo", "en": "the operating system", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "la actualizaci\u00f3n de software", "en": "the software update", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "el nombre de usuario", "en": "the username", "cat": "IT: Software & Digital Workflows", "type": "Noun"}, {"sp": "iniciar sesi\u00f3n en la aplicaci\u00f3n m\u00f3vil", "en": "to log in to the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en la cuenta de usuario", "en": "to log in to the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en la contrase\u00f1a segura", "en": "to log in to the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en el almacenamiento en la nube", "en": "to log in to the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en el correo electr\u00f3nico", "en": "to log in to the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en el archivo PDF", "en": "to log in to the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en la conexi\u00f3n wifi", "en": "to log in to the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en el sistema operativo", "en": "to log in to the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en la actualizaci\u00f3n de software", "en": "to log in to the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "iniciar sesi\u00f3n en el nombre de usuario", "en": "to log in to the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en la aplicaci\u00f3n m\u00f3vil", "en": "to log out of the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en la cuenta de usuario", "en": "to log out of the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en la contrase\u00f1a segura", "en": "to log out of the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en el almacenamiento en la nube", "en": "to log out of the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en el correo electr\u00f3nico", "en": "to log out of the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en el archivo PDF", "en": "to log out of the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en la conexi\u00f3n wifi", "en": "to log out of the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en el sistema operativo", "en": "to log out of the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en la actualizaci\u00f3n de software", "en": "to log out of the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "cerrar sesi\u00f3n en el nombre de usuario", "en": "to log out of the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar la aplicaci\u00f3n m\u00f3vil", "en": "to download the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar la cuenta de usuario", "en": "to download the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar la contrase\u00f1a segura", "en": "to download the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar el almacenamiento en la nube", "en": "to download the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar el correo electr\u00f3nico", "en": "to download the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar el archivo PDF", "en": "to download the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar la conexi\u00f3n wifi", "en": "to download the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar el sistema operativo", "en": "to download the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar la actualizaci\u00f3n de software", "en": "to download the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "descargar el nombre de usuario", "en": "to download the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube la aplicaci\u00f3n m\u00f3vil", "en": "to upload to the cloud the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube la cuenta de usuario", "en": "to upload to the cloud the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube la contrase\u00f1a segura", "en": "to upload to the cloud the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube el almacenamiento en la nube", "en": "to upload to the cloud the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube el correo electr\u00f3nico", "en": "to upload to the cloud the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube el archivo PDF", "en": "to upload to the cloud the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube la conexi\u00f3n wifi", "en": "to upload to the cloud the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube el sistema operativo", "en": "to upload to the cloud the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube la actualizaci\u00f3n de software", "en": "to upload to the cloud the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "subir a la nube el nombre de usuario", "en": "to upload to the cloud the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar la aplicaci\u00f3n m\u00f3vil", "en": "to install the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar la cuenta de usuario", "en": "to install the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar la contrase\u00f1a segura", "en": "to install the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar el almacenamiento en la nube", "en": "to install the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar el correo electr\u00f3nico", "en": "to install the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar el archivo PDF", "en": "to install the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar la conexi\u00f3n wifi", "en": "to install the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar el sistema operativo", "en": "to install the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar la actualizaci\u00f3n de software", "en": "to install the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "instalar el nombre de usuario", "en": "to install the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar la aplicaci\u00f3n m\u00f3vil", "en": "to update the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar la cuenta de usuario", "en": "to update the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar la contrase\u00f1a segura", "en": "to update the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar el almacenamiento en la nube", "en": "to update the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar el correo electr\u00f3nico", "en": "to update the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar el archivo PDF", "en": "to update the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar la conexi\u00f3n wifi", "en": "to update the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar el sistema operativo", "en": "to update the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar la actualizaci\u00f3n de software", "en": "to update the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "actualizar el nombre de usuario", "en": "to update the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar la aplicaci\u00f3n m\u00f3vil", "en": "to synchronize the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar la cuenta de usuario", "en": "to synchronize the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar la contrase\u00f1a segura", "en": "to synchronize the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar el almacenamiento en la nube", "en": "to synchronize the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar el correo electr\u00f3nico", "en": "to synchronize the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar el archivo PDF", "en": "to synchronize the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar la conexi\u00f3n wifi", "en": "to synchronize the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar el sistema operativo", "en": "to synchronize the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar la actualizaci\u00f3n de software", "en": "to synchronize the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "sincronizar el nombre de usuario", "en": "to synchronize the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar la aplicaci\u00f3n m\u00f3vil", "en": "to attach the mobile app", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar la cuenta de usuario", "en": "to attach the user account", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar la contrase\u00f1a segura", "en": "to attach the secure password", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar el almacenamiento en la nube", "en": "to attach the cloud storage", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar el correo electr\u00f3nico", "en": "to attach the email", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar el archivo PDF", "en": "to attach the PDF file", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar la conexi\u00f3n wifi", "en": "to attach the Wi-Fi connection", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar el sistema operativo", "en": "to attach the operating system", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar la actualizaci\u00f3n de software", "en": "to attach the software update", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "adjuntar el nombre de usuario", "en": "to attach the username", "cat": "IT: Software & Digital Workflows", "type": "Phrase"}, {"sp": "impartir", "en": "to deliver / teach", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "debatir en", "en": "to debate in", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "tomar apuntes durante", "en": "to take notes during", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "hacer preguntas sobre", "en": "to ask questions about", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "explicar", "en": "to explain", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "facilitar", "en": "to facilitate", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "asistir a", "en": "to attend", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "proyectar en", "en": "to project on", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "colaborar en", "en": "to collaborate on", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "revisar en clase", "en": "to review in class", "cat": "College: Classroom & Pedagogy", "type": "Verb"}, {"sp": "el programa de estudios", "en": "the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "el aula universitaria", "en": "the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "el horario de atenci\u00f3n", "en": "the office hours", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "la pizarra interactiva", "en": "the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "la lectura obligatoria", "en": "the required reading", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "el debate acad\u00e9mico", "en": "the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "el trabajo en grupo", "en": "the group work", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "la asistencia a clase", "en": "the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "la presentaci\u00f3n oral", "en": "the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "la discusi\u00f3n en clase", "en": "the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Noun"}, {"sp": "impartir el programa de estudios", "en": "to deliver / teach the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir el aula universitaria", "en": "to deliver / teach the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir el horario de atenci\u00f3n", "en": "to deliver / teach the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir la pizarra interactiva", "en": "to deliver / teach the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir la lectura obligatoria", "en": "to deliver / teach the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir el debate acad\u00e9mico", "en": "to deliver / teach the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir el trabajo en grupo", "en": "to deliver / teach the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir la asistencia a clase", "en": "to deliver / teach the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir la presentaci\u00f3n oral", "en": "to deliver / teach the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "impartir la discusi\u00f3n en clase", "en": "to deliver / teach the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en el programa de estudios", "en": "to debate in the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en el aula universitaria", "en": "to debate in the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en el horario de atenci\u00f3n", "en": "to debate in the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en la pizarra interactiva", "en": "to debate in the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en la lectura obligatoria", "en": "to debate in the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en el debate acad\u00e9mico", "en": "to debate in the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en el trabajo en grupo", "en": "to debate in the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en la asistencia a clase", "en": "to debate in the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en la presentaci\u00f3n oral", "en": "to debate in the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "debatir en la discusi\u00f3n en clase", "en": "to debate in the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante el programa de estudios", "en": "to take notes during the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante el aula universitaria", "en": "to take notes during the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante el horario de atenci\u00f3n", "en": "to take notes during the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante la pizarra interactiva", "en": "to take notes during the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante la lectura obligatoria", "en": "to take notes during the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante el debate acad\u00e9mico", "en": "to take notes during the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante el trabajo en grupo", "en": "to take notes during the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante la asistencia a clase", "en": "to take notes during the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante la presentaci\u00f3n oral", "en": "to take notes during the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "tomar apuntes durante la discusi\u00f3n en clase", "en": "to take notes during the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre el programa de estudios", "en": "to ask questions about the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre el aula universitaria", "en": "to ask questions about the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre el horario de atenci\u00f3n", "en": "to ask questions about the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre la pizarra interactiva", "en": "to ask questions about the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre la lectura obligatoria", "en": "to ask questions about the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre el debate acad\u00e9mico", "en": "to ask questions about the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre el trabajo en grupo", "en": "to ask questions about the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre la asistencia a clase", "en": "to ask questions about the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre la presentaci\u00f3n oral", "en": "to ask questions about the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "hacer preguntas sobre la discusi\u00f3n en clase", "en": "to ask questions about the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar el programa de estudios", "en": "to explain the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar el aula universitaria", "en": "to explain the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar el horario de atenci\u00f3n", "en": "to explain the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar la pizarra interactiva", "en": "to explain the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar la lectura obligatoria", "en": "to explain the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar el debate acad\u00e9mico", "en": "to explain the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar el trabajo en grupo", "en": "to explain the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar la asistencia a clase", "en": "to explain the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar la presentaci\u00f3n oral", "en": "to explain the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "explicar la discusi\u00f3n en clase", "en": "to explain the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar el programa de estudios", "en": "to facilitate the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar el aula universitaria", "en": "to facilitate the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar el horario de atenci\u00f3n", "en": "to facilitate the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar la pizarra interactiva", "en": "to facilitate the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar la lectura obligatoria", "en": "to facilitate the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar el debate acad\u00e9mico", "en": "to facilitate the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar el trabajo en grupo", "en": "to facilitate the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar la asistencia a clase", "en": "to facilitate the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar la presentaci\u00f3n oral", "en": "to facilitate the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "facilitar la discusi\u00f3n en clase", "en": "to facilitate the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir al programa de estudios", "en": "to attend the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir al aula universitaria", "en": "to attend the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir al horario de atenci\u00f3n", "en": "to attend the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir a la pizarra interactiva", "en": "to attend the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir a la lectura obligatoria", "en": "to attend the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir al debate acad\u00e9mico", "en": "to attend the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir al trabajo en grupo", "en": "to attend the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir a la asistencia a clase", "en": "to attend the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir a la presentaci\u00f3n oral", "en": "to attend the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "asistir a la discusi\u00f3n en clase", "en": "to attend the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en el programa de estudios", "en": "to project on the course syllabus", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en el aula universitaria", "en": "to project on the college classroom", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en el horario de atenci\u00f3n", "en": "to project on the office hours", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en la pizarra interactiva", "en": "to project on the interactive whiteboard", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en la lectura obligatoria", "en": "to project on the required reading", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en el debate acad\u00e9mico", "en": "to project on the academic debate", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en el trabajo en grupo", "en": "to project on the group work", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en la asistencia a clase", "en": "to project on the class attendance", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en la presentaci\u00f3n oral", "en": "to project on the oral presentation", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "proyectar en la discusi\u00f3n en clase", "en": "to project on the class discussion", "cat": "College: Classroom & Pedagogy", "type": "Phrase"}, {"sp": "redactar", "en": "to draft / write", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "entregar", "en": "to submit / turn in", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "evaluar con", "en": "to evaluate with", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "calificar", "en": "to grade", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "citar", "en": "to cite", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "resumir", "en": "to summarize", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "fundamentar con", "en": "to substantiate with", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "revisar antes de", "en": "to review before", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "preparar para", "en": "to prepare for", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "cumplir con", "en": "to meet / fulfill", "cat": "College: Coursework & Academic Tasks", "type": "Verb"}, {"sp": "el ensayo de investigaci\u00f3n", "en": "the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "la tarea acad\u00e9mica", "en": "the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "el examen parcial", "en": "the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "la r\u00fabrica de evaluaci\u00f3n", "en": "the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "la calificaci\u00f3n final", "en": "the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "el plazo l\u00edmite", "en": "the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "la bibliograf\u00eda", "en": "the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "la fuente acad\u00e9mica", "en": "the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "la rese\u00f1a cr\u00edtica", "en": "the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "el trabajo final", "en": "the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Noun"}, {"sp": "redactar el ensayo de investigaci\u00f3n", "en": "to draft / write the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar la tarea acad\u00e9mica", "en": "to draft / write the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar el examen parcial", "en": "to draft / write the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar la r\u00fabrica de evaluaci\u00f3n", "en": "to draft / write the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar la calificaci\u00f3n final", "en": "to draft / write the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar el plazo l\u00edmite", "en": "to draft / write the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar la bibliograf\u00eda", "en": "to draft / write the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar la fuente acad\u00e9mica", "en": "to draft / write the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar la rese\u00f1a cr\u00edtica", "en": "to draft / write the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "redactar el trabajo final", "en": "to draft / write the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar el ensayo de investigaci\u00f3n", "en": "to submit / turn in the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar la tarea acad\u00e9mica", "en": "to submit / turn in the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar el examen parcial", "en": "to submit / turn in the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar la r\u00fabrica de evaluaci\u00f3n", "en": "to submit / turn in the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar la calificaci\u00f3n final", "en": "to submit / turn in the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar el plazo l\u00edmite", "en": "to submit / turn in the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar la bibliograf\u00eda", "en": "to submit / turn in the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar la fuente acad\u00e9mica", "en": "to submit / turn in the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar la rese\u00f1a cr\u00edtica", "en": "to submit / turn in the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "entregar el trabajo final", "en": "to submit / turn in the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con el ensayo de investigaci\u00f3n", "en": "to evaluate with the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con la tarea acad\u00e9mica", "en": "to evaluate with the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con el examen parcial", "en": "to evaluate with the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con la r\u00fabrica de evaluaci\u00f3n", "en": "to evaluate with the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con la calificaci\u00f3n final", "en": "to evaluate with the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con el plazo l\u00edmite", "en": "to evaluate with the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con la bibliograf\u00eda", "en": "to evaluate with the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con la fuente acad\u00e9mica", "en": "to evaluate with the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con la rese\u00f1a cr\u00edtica", "en": "to evaluate with the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "evaluar con el trabajo final", "en": "to evaluate with the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar el ensayo de investigaci\u00f3n", "en": "to grade the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar la tarea acad\u00e9mica", "en": "to grade the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar el examen parcial", "en": "to grade the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar la r\u00fabrica de evaluaci\u00f3n", "en": "to grade the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar la calificaci\u00f3n final", "en": "to grade the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar el plazo l\u00edmite", "en": "to grade the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar la bibliograf\u00eda", "en": "to grade the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar la fuente acad\u00e9mica", "en": "to grade the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar la rese\u00f1a cr\u00edtica", "en": "to grade the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "calificar el trabajo final", "en": "to grade the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar el ensayo de investigaci\u00f3n", "en": "to cite the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar la tarea acad\u00e9mica", "en": "to cite the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar el examen parcial", "en": "to cite the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar la r\u00fabrica de evaluaci\u00f3n", "en": "to cite the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar la calificaci\u00f3n final", "en": "to cite the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar el plazo l\u00edmite", "en": "to cite the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar la bibliograf\u00eda", "en": "to cite the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar la fuente acad\u00e9mica", "en": "to cite the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar la rese\u00f1a cr\u00edtica", "en": "to cite the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "citar el trabajo final", "en": "to cite the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir el ensayo de investigaci\u00f3n", "en": "to summarize the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir la tarea acad\u00e9mica", "en": "to summarize the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir el examen parcial", "en": "to summarize the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir la r\u00fabrica de evaluaci\u00f3n", "en": "to summarize the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir la calificaci\u00f3n final", "en": "to summarize the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir el plazo l\u00edmite", "en": "to summarize the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir la bibliograf\u00eda", "en": "to summarize the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir la fuente acad\u00e9mica", "en": "to summarize the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir la rese\u00f1a cr\u00edtica", "en": "to summarize the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "resumir el trabajo final", "en": "to summarize the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con el ensayo de investigaci\u00f3n", "en": "to substantiate with the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con la tarea acad\u00e9mica", "en": "to substantiate with the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con el examen parcial", "en": "to substantiate with the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con la r\u00fabrica de evaluaci\u00f3n", "en": "to substantiate with the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con la calificaci\u00f3n final", "en": "to substantiate with the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con el plazo l\u00edmite", "en": "to substantiate with the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con la bibliograf\u00eda", "en": "to substantiate with the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con la fuente acad\u00e9mica", "en": "to substantiate with the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con la rese\u00f1a cr\u00edtica", "en": "to substantiate with the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "fundamentar con el trabajo final", "en": "to substantiate with the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes del ensayo de investigaci\u00f3n", "en": "to review before the research essay", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes de la tarea acad\u00e9mica", "en": "to review before the academic assignment", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes del examen parcial", "en": "to review before the midterm exam", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes de la r\u00fabrica de evaluaci\u00f3n", "en": "to review before the grading rubric", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes de la calificaci\u00f3n final", "en": "to review before the final grade", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes del plazo l\u00edmite", "en": "to review before the deadline", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes de la bibliograf\u00eda", "en": "to review before the bibliography", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes de la fuente acad\u00e9mica", "en": "to review before the academic source", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes de la rese\u00f1a cr\u00edtica", "en": "to review before the critical review", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}, {"sp": "revisar antes del trabajo final", "en": "to review before the final paper", "cat": "College: Coursework & Academic Tasks", "type": "Phrase"}];
-        
-        let currentDeck = [...allCards];
+        // Vocabulary Database (Sample Set for Higher Ed, Library, and IT)
+        // You can continually add to this array to reach your 1,000 word goal.
+        const allVocab = [
+            // --- NOUNS (Higher Ed & Library) ---
+            { es: "la biblioteca", en: "library", type: "noun" },
+            { es: "el bibliotecario", en: "librarian (male)", type: "noun" },
+            { es: "la bibliotecaria", en: "librarian (female)", type: "noun" },
+            { es: "la universidad", en: "university", type: "noun" },
+            { es: "el profesor", en: "professor (male)", type: "noun" },
+            { es: "la profesora", en: "professor (female)", type: "noun" },
+            { es: "el estudiante", en: "student", type: "noun" },
+            { es: "el aula", en: "classroom", type: "noun" },
+            { es: "la conferencia", en: "lecture", type: "noun" },
+            { es: "el plan de estudios", en: "syllabus / curriculum", type: "noun" },
+            { es: "la calificación", en: "grade", type: "noun" },
+            { es: "la beca", en: "scholarship / grant", type: "noun" },
+            { es: "el catálogo", en: "catalog", type: "noun" },
+            { es: "la base de datos", en: "database", type: "noun" },
+            { es: "el artículo", en: "article", type: "noun" },
+            { es: "la revista académica", en: "academic journal", type: "noun" },
+            { es: "la investigación", en: "research", type: "noun" },
+            { es: "la cita", en: "citation", type: "noun" },
+            { es: "el plagio", en: "plagiarism", type: "noun" },
+            { es: "el archivo", en: "archive / file", type: "noun" },
+            { es: "el decano", en: "dean (male)", type: "noun" },
+    { es: "la decana", en: "dean (female)", type: "noun" },
+    { es: "el rector", en: "university president / chancellor", type: "noun" },
+    { es: "el departamento", en: "department", type: "noun" },
+    { es: "la facultad", en: "faculty / school (within a university)", type: "noun" },
+    { es: "el recinto", en: "campus / precinct", type: "noun" },
+    { es: "el campus", en: "campus", type: "noun" },
+    { es: "la matrícula", en: "enrollment / registration fee", type: "noun" },
+    { es: "la colegiatura", en: "tuition", type: "noun" },
+    { es: "el crédito", en: "academic credit", type: "noun" },
+    { es: "el requisito", en: "requirement", type: "noun" },
+    { es: "el prerrequisito", en: "prerequisite", type: "noun" },
+    { es: "el bachillerato", en: "bachelor's degree / high school diploma (varies by region)", type: "noun" },
+    { es: "la licenciatura", en: "bachelor's degree (LatAm)", type: "noun" },
+    { es: "la maestría", en: "master's degree", type: "noun" },
+    { es: "el doctorado", en: "doctorate / PhD", type: "noun" },
+    { es: "el posgrado", en: "postgraduate studies", type: "noun" },
+    { es: "el título", en: "degree / title", type: "noun" },
+    { es: "el diploma", en: "diploma", type: "noun" },
+    { es: "el certificado", en: "certificate", type: "noun" },
+    { es: "la ceremonia", en: "ceremony", type: "noun" },
+    { es: "la graduación", en: "graduation", type: "noun" },
+    { es: "el egresado", en: "graduate / alumnus", type: "noun" },
+    { es: "el exalumno", en: "alumnus / former student", type: "noun" },
+    { es: "el novato", en: "freshman / beginner", type: "noun" },
+    { es: "el decanato", en: "dean's office", type: "noun" },
+    { es: "el comité", en: "committee", type: "noun" },
+    { es: "la junta", en: "board / meeting", type: "noun" },
+    { es: "el estatuto", en: "statute", type: "noun" },
+    { es: "el reglamento", en: "regulations / rules", type: "noun" },
+    { es: "la política", en: "policy", type: "noun" },
+    { es: "la sanción", en: "sanction / penalty", type: "noun" },
+    { es: "la apelación", en: "appeal", type: "noun" },
+    { es: "el préstamo estudiantil", en: "student loan", type: "noun" },
+    { es: "la subvención", en: "grant / subsidy", type: "noun" },
+    { es: "el ensayo", en: "essay", type: "noun" },
+    { es: "la tesis", en: "thesis", type: "noun" },
+    { es: "la disertación", en: "dissertation", type: "noun" },
+    { es: "la monografía", en: "monograph", type: "noun" },
+    { es: "el borrador (texto)", en: "rough draft", type: "noun" },
+    { es: "el esquema", en: "outline / diagram", type: "noun" },
+    { es: "la revisión", en: "review / revision", type: "noun" },
+    { es: "la edición", en: "edition / editing", type: "noun" },
+    { es: "la rúbrica", en: "grading rubric", type: "noun" },
+    { es: "la evaluación", en: "assessment / evaluation", type: "noun" },
+    { es: "el examen", en: "exam", type: "noun" },
+    { es: "la prueba", en: "quiz / test", type: "noun" },
+    { es: "el parcial", en: "midterm exam", type: "noun" },
+    { es: "el examen final", en: "final exam", type: "noun" },
+    { es: "el cuestionario", en: "questionnaire", type: "noun" },
+    { es: "la pizarra", en: "whiteboard / chalkboard", type: "noun" },
+    { es: "el rotulador", en: "marker", type: "noun" },
+    { es: "el borrador (pizarra)", en: "eraser (for board)", type: "noun" },
+    { es: "el proyector", en: "projector", type: "noun" },
+    { es: "la diapositiva", en: "slide (presentation)", type: "noun" },
+    { es: "el podio", en: "podium", type: "noun" },
+    { es: "el atril", en: "lectern / stand", type: "noun" },
+    { es: "el pupitre", en: "student desk", type: "noun" },
+    { es: "el escritorio", en: "teacher's desk / office desk", type: "noun" },
+    { es: "la tiza", en: "chalk", type: "noun" },
+    { es: "el laboratorio", en: "laboratory", type: "noun" },
+    { es: "el equipo", en: "equipment / team", type: "noun" },
+    { es: "el experimento", en: "experiment", type: "noun" },
+    { es: "el informe", en: "report", type: "noun" },
+    { es: "el análisis", en: "analysis", type: "noun" },
+    { es: "el método", en: "method", type: "noun" },
+    { es: "la teoría", en: "theory", type: "noun" },
+    { es: "la hipótesis", en: "hypothesis", type: "noun" },
+    { es: "el resultado", en: "result", type: "noun" },
+    { es: "la conclusión", en: "conclusion", type: "noun" },
+    { es: "el debate", en: "debate", type: "noun" },
+    { es: "el seminario", en: "seminar", type: "noun" },
+    { es: "el simposio", en: "symposium", type: "noun" },
+    { es: "el taller", en: "workshop", type: "noun" },
+    { es: "el congreso", en: "conference / congress", type: "noun" },
+            // --- NOUNS (IT & Productivity) ---
+            { es: "el ordenador", en: "computer (Spain)", type: "noun" },
+            { es: "la computadora", en: "computer (LatAm)", type: "noun" },
+            { es: "el teclado", en: "keyboard", type: "noun" },
+            { es: "la pantalla", en: "screen / monitor", type: "noun" },
+            { es: "el ratón", en: "mouse", type: "noun" },
+            { es: "el software", en: "software", type: "noun" },
+            { es: "la red", en: "network", type: "noun" },
+            { es: "el enlace", en: "link", type: "noun" },
+            { es: "el navegador", en: "web browser", type: "noun" },
+            { es: "la contraseña", en: "password", type: "noun" },
+            { es: "el usuario", en: "user", type: "noun" },
+            { es: "el documento", en: "document", type: "noun" },
+            { es: "la hoja de cálculo", en: "spreadsheet", type: "noun" },
+            { es: "la presentación", en: "presentation", type: "noun" },
+            { es: "la carpeta", en: "folder", type: "noun" },
+            { es: "el correo electrónico", en: "email", type: "noun" },
+            { es: "el archivo adjunto", en: "attachment", type: "noun" },
+            { es: "la nube", en: "the cloud", type: "noun" },
+            { es: "el servidor", en: "server", type: "noun" },
+            { es: "la configuración", en: "settings / configuration", type: "noun" },
+{ es: "el mostrador", en: "circulation desk / counter", type: "noun" },
+    { es: "la renovación", en: "renewal", type: "noun" },
+    { es: "la devolución", en: "return (of a book)", type: "noun" },
+    { es: "la multa", en: "fine (penalty)", type: "noun" },
+    { es: "el estante", en: "shelf", type: "noun" },
+    { es: "la estantería", en: "bookcase / shelving", type: "noun" },
+    { es: "el pasillo", en: "aisle", type: "noun" },
+    { es: "el índice", en: "index", type: "noun" },
+    { es: "el glosario", en: "glossary", type: "noun" },
+    { es: "el apéndice", en: "appendix", type: "noun" },
+    { es: "la bibliografía", en: "bibliography", type: "noun" },
+    { es: "la referencia", en: "reference", type: "noun" },
+    { es: "la circulación", en: "circulation", type: "noun" },
+    { es: "la colección", en: "collection", type: "noun" },
+    { es: "el manuscrito", en: "manuscript", type: "noun" },
+    { es: "el pergamino", en: "parchment", type: "noun" },
+    { es: "la hemeroteca", en: "periodicals section / newspaper archive", type: "noun" },
+    { es: "la revista", en: "magazine", type: "noun" },
+    { es: "el periódico", en: "newspaper", type: "noun" },
+    { es: "el diario", en: "daily newspaper / journal", type: "noun" },
+    { es: "el boletín", en: "bulletin / newsletter", type: "noun" },
+    { es: "la enciclopedia", en: "encyclopedia", type: "noun" },
+    { es: "el diccionario", en: "dictionary", type: "noun" },
+    { es: "el atlas", en: "atlas", type: "noun" },
+    { es: "el mapa", en: "map", type: "noun" },
+    { es: "el manual", en: "manual", type: "noun" },
+    { es: "la guía", en: "guide", type: "noun" },
+    { es: "el directorio", en: "directory", type: "noun" },
+    { es: "el volumen", en: "volume (book)", type: "noun" },
+    { es: "el tomo", en: "tome / volume", type: "noun" },
+{ es: "el hardware", en: "hardware", type: "noun" },
+    { es: "el procesador", en: "processor", type: "noun" },
+    { es: "la memoria", en: "memory", type: "noun" },
+    { es: "el disco duro", en: "hard drive", type: "noun" },
+    { es: "la unidad", en: "drive (e.g., USB drive)", type: "noun" },
+    { es: "el puerto", en: "port (e.g., USB port)", type: "noun" },
+    { es: "el cable", en: "cable", type: "noun" },
+    { es: "el adaptador", en: "adapter", type: "noun" },
+    { es: "el cargador", en: "charger", type: "noun" },
+    { es: "el enchufe", en: "plug / outlet", type: "noun" },
+    { es: "el interruptor", en: "switch", type: "noun" },
+    { es: "la batería", en: "battery", type: "noun" },
+    { es: "el icono", en: "icon", type: "noun" },
+    { es: "la ventana", en: "window", type: "noun" },
+    { es: "el menú", en: "menu", type: "noun" },
+    { es: "la pestaña", en: "tab", type: "noun" },
+    { es: "la herramienta", en: "tool", type: "noun" },
+    { es: "la barra", en: "bar (e.g., toolbar)", type: "noun" },
+    { es: "el historial", en: "browser history", type: "noun" },
+    { es: "el marcador", en: "bookmark (browser)", type: "noun" },
+    { es: "el favorito", en: "favorite (bookmark)", type: "noun" },
+    { es: "el cursor", en: "cursor", type: "noun" },
+    { es: "el puntero", en: "pointer", type: "noun" },
+    { es: "el acceso directo", en: "shortcut", type: "noun" },
+    { es: "la papelera", en: "trash / recycle bin", type: "noun" },
+    { es: "el virus", en: "virus", type: "noun" },
+    { es: "el antivirus", en: "antivirus", type: "noun" },
+    { es: "el cortafuegos", en: "firewall", type: "noun" },
+    { es: "el perfil", en: "profile", type: "noun" },
+    { es: "la cuenta", en: "account", type: "noun" },
+    { es: "la sesión", en: "session", type: "noun" },
+    { es: "la clave", en: "key / password", type: "noun" },
+    { es: "el formato", en: "format", type: "noun" },
+    { es: "la fuente", en: "font / typeface", type: "noun" },
+    { es: "la plantilla", en: "template", type: "noun" },
+    { es: "el gráfico", en: "chart / graph", type: "noun" },
+    { es: "la tabla", en: "table (data)", type: "noun" },
+    { es: "la fila", en: "row", type: "noun" },
+    { es: "la columna", en: "column", type: "noun" },
+    { es: "la celda", en: "cell (spreadsheet)", type: "noun" },
+    { es: "el hipervínculo", en: "hyperlink", type: "noun" },
+    { es: "el enrutador", en: "router", type: "noun" },
+    { es: "el módem", en: "modem", type: "noun" },
+    { es: "el ancho de banda", en: "bandwidth", type: "noun" },
+    { es: "el correo no deseado", en: "spam", type: "noun" },
+{ es: "el asesor", en: "advisor (male)", type: "noun" },
+    { es: "la asesora", en: "advisor (female)", type: "noun" },
+    { es: "el consejero", en: "counselor (male)", type: "noun" },
+    { es: "la consejera", en: "counselor (female)", type: "noun" },
+    { es: "el mentor", en: "mentor", type: "noun" },
+    { es: "la tutora", en: "tutor (female)", type: "noun" },
+    { es: "la tutoría", en: "tutoring session", type: "noun" },
+    { es: "el rectorado", en: "chancellor's office", type: "noun" },
+    { es: "el claustro", en: "faculty / cloister", type: "noun" },
+    { es: "la pensión", en: "boarding house / stipend", type: "noun" },
+    { es: "el patrocinador", en: "sponsor", type: "noun" },
+    { es: "la residencia", en: "residence hall", type: "noun" },
+    { es: "el dormitorio", en: "dorm room", type: "noun" },
+    { es: "el comedor", en: "dining hall", type: "noun" },
+    { es: "el polideportivo", en: "sports center", type: "noun" },
+    { es: "el gimnasio", en: "gymnasium", type: "noun" },
+    { es: "el estadio", en: "stadium", type: "noun" },
+    { es: "el auditorio", en: "auditorium", type: "noun" },
+    { es: "el teatro", en: "theater", type: "noun" },
+    { es: "el centro estudiantil", en: "student center", type: "noun" },
+    { es: "la fraternidad", en: "fraternity", type: "noun" },
+    { es: "la hermandad", en: "sorority / brotherhood", type: "noun" },
+    { es: "el club", en: "club", type: "noun" },
+    { es: "la asociación", en: "association", type: "noun" },
+    { es: "el alumnado", en: "student body", type: "noun" },
+    { es: "el profesorado", en: "teaching staff", type: "noun" },
+    { es: "el personal", en: "staff", type: "noun" },
+    { es: "el sindicato", en: "union", type: "noun" },
+    { es: "la asistencia", en: "attendance", type: "noun" },
+    { es: "la inasistencia", en: "absence", type: "noun" },
+    { es: "la tardanza", en: "tardiness", type: "noun" },
+    { es: "el retraso", en: "delay", type: "noun" },
+    { es: "el justificante", en: "doctor's note / written excuse", type: "noun" },
+    { es: "la expulsión", en: "expulsion", type: "noun" },
+    { es: "la suspensión", en: "suspension", type: "noun" },
+    { es: "la amonestación", en: "warning / reprimand", type: "noun" },
+    { es: "el mérito", en: "merit", type: "noun" },
+    { es: "la distinción", en: "distinction", type: "noun" },
+    { es: "el honor", en: "honor", type: "noun" },
+    { es: "el premio", en: "award / prize", type: "noun" },
+    { es: "el semestre", en: "semester", type: "noun" },
+    { es: "el trimestre", en: "trimester / quarter", type: "noun" },
+    { es: "el cuatrimestre", en: "four-month term", type: "noun" },
+    { es: "el período", en: "period / term", type: "noun" },
+    { es: "el ciclo", en: "cycle", type: "noun" },
+    { es: "el horario", en: "schedule", type: "noun" },
+    { es: "el calendario", en: "calendar", type: "noun" },
+    { es: "la agenda", en: "agenda / planner", type: "noun" },
+    { es: "el almanaque", en: "almanac", type: "noun" },
+    { es: "el compañero de clase", en: "classmate", type: "noun" },
+{ es: "el repositorio", en: "repository", type: "noun" },
+    { es: "el archivo digital", en: "digital archive", type: "noun" },
+    { es: "el microfilm", en: "microfilm", type: "noun" },
+    { es: "la microficha", en: "microfiche", type: "noun" },
+    { es: "el facsímil", en: "facsimile", type: "noun" },
+    { es: "el folleto", en: "brochure / pamphlet", type: "noun" },
+    { es: "el panfleto", en: "pamphlet", type: "noun" },
+    { es: "el papiro", en: "papyrus", type: "noun" },
+    { es: "el incunable", en: "incunable (early printed book)", type: "noun" },
+    { es: "el lomo", en: "spine (of a book)", type: "noun" },
+    { es: "la portada", en: "title page / front cover", type: "noun" },
+    { es: "la cubierta", en: "cover", type: "noun" },
+    { es: "la contraportada", en: "back cover", type: "noun" },
+    { es: "el prefacio", en: "preface", type: "noun" },
+    { es: "el prólogo", en: "prologue", type: "noun" },
+    { es: "el epílogo", en: "epilogue", type: "noun" },
+    { es: "el colofón", en: "colophon", type: "noun" },
+    { es: "la tabla de materias", en: "table of contents", type: "noun" },
+    { es: "el carrito", en: "book cart", type: "noun" },
+    { es: "el código de barras", en: "barcode", type: "noun" },
+    { es: "la etiqueta", en: "label", type: "noun" },
+    { es: "el tejuelo", en: "spine label", type: "noun" },
+    { es: "la signatura topográfica", en: "call number", type: "noun" },
+    { es: "el préstamo interbibliotecario", en: "interlibrary loan", type: "noun" },
+    { es: "la reserva", en: "reservation / hold", type: "noun" },
+    { es: "el donativo", en: "donation", type: "noun" },
+    { es: "el expurgo", en: "weeding / discarding of books", type: "noun" },
+    { es: "el deterioro", en: "deterioration", type: "noun" },
+    { es: "la preservación", en: "preservation", type: "noun" },
+    { es: "la conservación", en: "conservation", type: "noun" },
+    { es: "el encuadernador", en: "bookbinder", type: "noun" },
+    { es: "la restauración", en: "restoration", type: "noun" },
+    { es: "el depósito", en: "depository / storage", type: "noun" },
+    { es: "la sala de lectura", en: "reading room", type: "noun" },
+    { es: "el puesto de estudio", en: "study carrel", type: "noun" },
+    { es: "la cabina", en: "cubicle / study booth", type: "noun" },
+    { es: "el silencio", en: "silence", type: "noun" },
+    { es: "el ruido", en: "noise", type: "noun" },
+    { es: "el préstamo", en: "loan", type: "noun" },
+    { es: "la tirada", en: "print run", type: "noun" },
+    { es: "la reimpresión", en: "reprint", type: "noun" },
+    { es: "el ISBN", en: "ISBN", type: "noun" },
+    { es: "el ISSN", en: "ISSN", type: "noun" },
+    { es: "la imprenta", en: "printing press", type: "noun" },
+    { es: "la editorial", en: "publisher", type: "noun" },
+    { es: "el autor", en: "author (male)", type: "noun" },
+    { es: "la autora", en: "author (female)", type: "noun" },
+    { es: "el editor", en: "editor (male)", type: "noun" },
+    { es: "la editora", en: "editor (female)", type: "noun" },
+    { es: "el redactor", en: "copywriter / redactor", type: "noun" },
+    { es: "el traductor", en: "translator", type: "noun" },
+    { es: "la sinopsis", en: "synopsis / blurb", type: "noun" },
+    { es: "el seudónimo", en: "pseudonym", type: "noun" },
+    { es: "la antología", en: "anthology", type: "noun" },
+    { es: "la compilación", en: "compilation", type: "noun" },
+    { es: "el compendio", en: "compendium", type: "noun" },
+    { es: "el extracto", en: "excerpt", type: "noun" },
+    { es: "la cita textual", en: "direct quote", type: "noun" },
+    { es: "la paráfrasis", en: "paraphrase", type: "noun" },
+    { es: "el formato APA", en: "APA format", type: "noun" },
+    { es: "el formato MLA", en: "MLA format", type: "noun" },
+    { es: "el manual de estilo", en: "style manual", type: "noun" },
+    { es: "el derecho de autor", en: "copyright", type: "noun" },
+    { es: "el dominio público", en: "public domain", type: "noun" },
+    { es: "la licencia", en: "license", type: "noun" },
+    { es: "el acceso abierto", en: "open access", type: "noun" },
+    { es: "el embargo", en: "embargo", type: "noun" },
+    { es: "el consorcio", en: "consortium", type: "noun" },
+    { es: "el metabuscador", en: "metasearch engine", type: "noun" },
+    { es: "el operador booleano", en: "Boolean operator", type: "noun" },
+    { es: "la palabra clave", en: "keyword", type: "noun" },
+    { es: "la búsqueda avanzada", en: "advanced search", type: "noun" },
+    { es: "el campo de búsqueda", en: "search field", type: "noun" },
+    { es: "el truncamiento", en: "truncation", type: "noun" },
+    { es: "la taxonomía", en: "taxonomy", type: "noun" },
+
+    // --- IT, HARDWARE, SOFTWARE & PRODUCTIVITY ---
+    { es: "el dispositivo", en: "device", type: "noun" },
+    { es: "el aparato", en: "appliance / device", type: "noun" },
+    { es: "el móvil", en: "mobile phone (Spain)", type: "noun" },
+    { es: "el celular", en: "cell phone (LatAm)", type: "noun" },
+    { es: "la tableta", en: "tablet", type: "noun" },
+    { es: "el portátil", en: "laptop", type: "noun" },
+    { es: "el auricular", en: "earphone / headset", type: "noun" },
+    { es: "el micrófono", en: "microphone", type: "noun" },
+    { es: "el altavoz", en: "speaker (Spain)", type: "noun" },
+    { es: "el parlante", en: "speaker (LatAm)", type: "noun" },
+    { es: "la cámara web", en: "webcam", type: "noun" },
+    { es: "el puerto HDMI", en: "HDMI port", type: "noun" },
+    { es: "la placa base", en: "motherboard", type: "noun" },
+    { es: "el microprocesador", en: "microprocessor", type: "noun" },
+    { es: "el ventilador", en: "cooling fan", type: "noun" },
+    { es: "el servidor web", en: "web server", type: "noun" },
+    { es: "el dominio", en: "web domain", type: "noun" },
+    { es: "la dirección IP", en: "IP address", type: "noun" },
+    { es: "el protocolo", en: "protocol", type: "noun" },
+    { es: "el certificado SSL", en: "SSL certificate", type: "noun" },
+    { es: "la cookie", en: "browser cookie", type: "noun" },
+    { es: "el caché", en: "cache", type: "noun" },
+    { es: "el complemento", en: "add-on / add-in", type: "noun" },
+    { es: "la extensión", en: "browser extension", type: "noun" },
+    { es: "el plugin", en: "plugin", type: "noun" },
+    { es: "la interfaz", en: "interface", type: "noun" },
+    { es: "el panel de control", en: "control panel", type: "noun" },
+    { es: "el tablero", en: "dashboard", type: "noun" },
+    { es: "la consola", en: "console", type: "noun" },
+    { es: "la terminal", en: "terminal (command line)", type: "noun" },
+    { es: "el código fuente", en: "source code", type: "noun" },
+    { es: "la etiqueta HTML", en: "HTML tag", type: "noun" },
+    { es: "la hoja de estilos", en: "stylesheet (CSS)", type: "noun" },
+    { es: "el script", en: "script", type: "noun" },
+    { es: "el algoritmo", en: "algorithm", type: "noun" },
+    { es: "la base de datos relacional", en: "relational database", type: "noun" },
+    { es: "la consulta", en: "database query", type: "noun" },
+    { es: "el respaldo", en: "backup", type: "noun" },
+    { es: "la copia de seguridad", en: "backup copy", type: "noun" },
+    { es: "el almacenamiento", en: "storage", type: "noun" },
+    { es: "el megabyte", en: "megabyte", type: "noun" },
+    { es: "el gigabyte", en: "gigabyte", type: "noun" },
+    { es: "el terabyte", en: "terabyte", type: "noun" },
+    { es: "el píxel", en: "pixel", type: "noun" },
+    { es: "la resolución", en: "resolution", type: "noun" },
+    { es: "el brillo", en: "brightness", type: "noun" },
+    { es: "el contraste", en: "contrast", type: "noun" },
+    { es: "el filtro", en: "filter", type: "noun" },
+    { es: "la macro", en: "macro (spreadsheet)", type: "noun" },
+    { es: "la celda activa", en: "active cell", type: "noun" },
+    { es: "el rango", en: "range (data)", type: "noun" },
+    { es: "el gráfico de barras", en: "bar chart", type: "noun" },
+    { es: "el gráfico circular", en: "pie chart", type: "noun" },
+    { es: "el eje", en: "axis (graphing)", type: "noun" },
+    { es: "la leyenda", en: "legend (chart)", type: "noun" },
+    { es: "la viñeta", en: "bullet point", type: "noun" },
+    { es: "la sangría", en: "indentation", type: "noun" },
+    { es: "el margen", en: "margin", type: "noun" },
+    { es: "el espaciado", en: "spacing", type: "noun" },
+    { es: "el interlineado", en: "line spacing", type: "noun" },
+    { es: "la alineación", en: "alignment", type: "noun" },
+    { es: "el encabezado", en: "header", type: "noun" },
+    { es: "el pie de página", en: "footer", type: "noun" },
+    { es: "el salto de página", en: "page break", type: "noun" },
+    { es: "la marca de agua", en: "watermark", type: "noun" },
+    { es: "el cuadro de texto", en: "text box", type: "noun" },
+    { es: "la imagen prediseñada", en: "clipart", type: "noun" },
+    { es: "el hipertexto", en: "hypertext", type: "noun" },
+    { es: "el enlace roto", en: "broken link", type: "noun" },
+    { es: "el error", en: "error", type: "noun" },
+    { es: "el fallo", en: "bug / glitch", type: "noun" },
+    { es: "la captura de pantalla", en: "screenshot", type: "noun" },
+    { es: "el pantallazo", en: "screenshot (colloquial)", type: "noun" },
+    { es: "el atajo de teclado", en: "keyboard shortcut", type: "noun" },
+    { es: "el metadato", en: "metadata", type: "noun" }
+
+            // --- VERBS (Higher Ed & Library) ---
+            { es: "enseñar", en: "to teach", type: "verb" },
+            { es: "aprender", en: "to learn", type: "verb" },
+            { es: "estudiar", en: "to study", type: "verb" },
+            { es: "leer", en: "to read", type: "verb" },
+            { es: "escribir", en: "to write", type: "verb" },
+            { es: "investigar", en: "to research", type: "verb" },
+            { es: "citar", en: "to cite", type: "verb" },
+            { es: "evaluar", en: "to evaluate", type: "verb" },
+            { es: "calificar", en: "to grade", type: "verb" },
+            { es: "prestar", en: "to lend (books)", type: "verb" },
+            { es: "matricularse", en: "to enroll / register", type: "verb" },
+    { es: "inscribirse", en: "to sign up / enroll", type: "verb" },
+    { es: "especializarse", en: "to major in", type: "verb" },
+    { es: "graduarse", en: "to graduate", type: "verb" },
+    { es: "aprobar", en: "to pass (an exam/class)", type: "verb" },
+    { es: "reprobar", en: "to fail (LatAm)", type: "verb" },
+    { es: "suspender", en: "to fail (Spain)", type: "verb" },
+    { es: "asistir", en: "to attend", type: "verb" },
+    { es: "faltar", en: "to be absent / miss class", type: "verb" },
+    { es: "entregar", en: "to turn in / submit", type: "verb" },
+    { es: "presentar", en: "to present", type: "verb" },
+    { es: "debatir", en: "to debate", type: "verb" },
+    { es: "analizar", en: "to analyze", type: "verb" },
+    { es: "resumir", en: "to summarize", type: "verb" },
+    { es: "revisar", en: "to review / check", type: "verb" },
+    { es: "corregir", en: "to correct / grade", type: "verb" },
+    { es: "subrayar", en: "to underline / highlight", type: "verb" },
+    { es: "destacar", en: "to highlight / emphasize", type: "verb" },
+    { es: "memorizar", en: "to memorize", type: "verb" },
+    { es: "repasar", en: "to review (study)", type: "verb" },
+    { es: "parafrasear", en: "to paraphrase", type: "verb" },
+    { es: "clasificar", en: "to classify", type: "verb" },
+    { es: "catalogar", en: "to catalog", type: "verb" },
+    { es: "archivar", en: "to file / archive", type: "verb" },
+    { es: "indexar", en: "to index", type: "verb" },
+            
+// --- VERBS (IT & Productivity) ---
+            { es: "guardar", en: "to save", type: "verb" },
+            { es: "borrar", en: "to delete / erase", type: "verb" },
+            { es: "descargar", en: "to download", type: "verb" },
+            { es: "subir", en: "to upload", type: "verb" },
+            { es: "imprimir", en: "to print", type: "verb" },
+            { es: "hacer clic", en: "to click", type: "verb" },
+            { es: "navegar", en: "to navigate / browse", type: "verb" },
+            { es: "copiar", en: "to copy", type: "verb" },
+            { es: "pegar", en: "to paste", type: "verb" },
+            { es: "reiniciar", en: "to restart", type: "verb" }
+{ es: "buscar", en: "to search", type: "verb" },
+    { es: "recuperar", en: "to recover (data)", type: "verb" },
+    { es: "renovar", en: "to renew", type: "verb" },
+    { es: "devolver", en: "to return (items)", type: "verb" },
+    { es: "escanear", en: "to scan", type: "verb" },
+    { es: "fotocopiar", en: "to photocopy", type: "verb" },
+    { es: "encuadernar", en: "to bind (a book)", type: "verb" },
+    { es: "teclear", en: "to type", type: "verb" },
+    { es: "arrastrar", en: "to drag", type: "verb" },
+    { es: "soltar", en: "to drop (drag and drop)", type: "verb" },
+    { es: "maximizar", en: "to maximize", type: "verb" },
+    { es: "minimizar", en: "to minimize", type: "verb" },
+    { es: "adjuntar", en: "to attach", type: "verb" },
+    { es: "comprimir", en: "to zip / compress", type: "verb" },
+    { es: "descomprimir", en: "to unzip / extract", type: "verb" },
+    { es: "instalar", en: "to install", type: "verb" },
+    { es: "desinstalar", en: "to uninstall", type: "verb" },
+    { es: "actualizar", en: "to update", type: "verb" },
+    { es: "reiniciar", en: "to restart", type: "verb" },
+    { es: "conectar", en: "to connect", type: "verb" },
+    { es: "desconectar", en: "to disconnect", type: "verb" },
+    { es: "sincronizar", en: "to sync", type: "verb" },
+    { es: "formatear", en: "to format", type: "verb" },
+    { es: "configurar", en: "to configure / set up", type: "verb" },
+    { es: "personalizar", en: "to customize", type: "verb" }
+        ];
+
+        let currentDeck = [...allVocab];
         let currentIndex = 0;
 
-        function updateDisplay() {
+        const cardElement = document.getElementById('flashcard');
+        const esWordElement = document.getElementById('es-word');
+        const enWordElement = document.getElementById('en-word');
+        const esTypeElement = document.getElementById('es-type');
+        const enTypeElement = document.getElementById('en-type');
+        const counterElement = document.getElementById('counter');
+
+        function updateCard() {
             if (currentDeck.length === 0) {
-                document.getElementById("front-phrase").textContent = "No cards match filter";
-                document.getElementById("front-category").textContent = "N/A";
-                document.getElementById("front-type").textContent = "N/A";
-                document.getElementById("back-phrase").textContent = "Sin resultados";
-                document.getElementById("back-category").textContent = "N/A";
-                document.getElementById("back-type").textContent = "N/A";
-                document.getElementById("counter").textContent = "0 of 0";
+                esWordElement.textContent = "No cards";
+                enWordElement.textContent = "No cards";
+                esTypeElement.textContent = "";
+                enTypeElement.textContent = "";
+                counterElement.textContent = "0 / 0";
                 return;
             }
+
+            // Ensure card is showing the front when updating
+            cardElement.classList.remove('is-flipped');
             
-            const card = currentDeck[currentIndex];
-            
-            document.getElementById("front-phrase").textContent = card.en;
-            document.getElementById("front-category").textContent = card.cat;
-            document.getElementById("front-type").textContent = card.type;
-            
-            document.getElementById("back-phrase").textContent = card.sp;
-            document.getElementById("back-category").textContent = card.cat;
-            document.getElementById("back-type").textContent = card.type;
-            
-            document.getElementById("counter").textContent = `Card ${currentIndex + 1} of ${currentDeck.length}`;
-            
-            const cardEl = document.getElementById("flashcard");
-            if (cardEl.classList.contains("is-flipped")) {
-                cardEl.classList.remove("is-flipped");
-            }
+            setTimeout(() => {
+                const card = currentDeck[currentIndex];
+                esWordElement.textContent = card.es;
+                enWordElement.textContent = card.en;
+                esTypeElement.textContent = card.type;
+                enTypeElement.textContent = card.type;
+                counterElement.textContent = `${currentIndex + 1} / ${currentDeck.length}`;
+            }, 150); // slight delay to allow flip animation to reset smoothly
         }
 
         function flipCard() {
             if (currentDeck.length > 0) {
-                document.getElementById("flashcard").classList.toggle("is-flipped");
+                cardElement.classList.toggle('is-flipped');
             }
         }
 
         function nextCard() {
-            if (currentDeck.length === 0) return;
-            currentIndex = (currentIndex + 1) % currentDeck.length;
-            updateDisplay();
+            if (currentDeck.length > 0) {
+                currentIndex = (currentIndex + 1) % currentDeck.length;
+                updateCard();
+            }
         }
 
         function prevCard() {
-            if (currentDeck.length === 0) return;
-            currentIndex = (currentIndex - 1 + currentDeck.length) % currentDeck.length;
-            updateDisplay();
+            if (currentDeck.length > 0) {
+                currentIndex = (currentIndex - 1 + currentDeck.length) % currentDeck.length;
+                updateCard();
+            }
+        }
+
+        function filterCards() {
+            const filterValue = document.getElementById('typeFilter').value;
+            if (filterValue === 'all') {
+                currentDeck = [...allVocab];
+            } else {
+                currentDeck = allVocab.filter(word => word.type === filterValue);
+            }
+            currentIndex = 0;
+            updateCard();
         }
 
         function shuffleCards() {
@@ -315,35 +691,11 @@
                 [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
             }
             currentIndex = 0;
-            updateDisplay();
+            updateCard();
         }
 
-        function filterCards() {
-            const category = document.getElementById("categoryFilter").value;
-            const type = document.getElementById("typeFilter").value;
-            
-            currentDeck = allCards.filter(card => {
-                const catMatch = category === "All" || card.cat === category;
-                const typeMatch = type === "All" || card.type === type;
-                return catMatch && typeMatch;
-            });
-            
-            currentIndex = 0;
-            updateDisplay();
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight') {
-                nextCard();
-            } else if (event.key === 'ArrowLeft') {
-                prevCard();
-            } else if (event.key === ' ' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-                event.preventDefault();
-                flipCard();
-            }
-        });
-
-        updateDisplay();
+        // Initialize first card
+        updateCard();
     </script>
 </body>
 </html>
